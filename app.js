@@ -7,7 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://127.0.0.1:27017';
 
 
-app.use(express.static('images'))
+app.use(express.static('/public'))
 
 
 
@@ -22,7 +22,7 @@ MongoClient.connect(url, {useUnifiedTopology: true})
 
 //----------middleware------------
 app.use(bodyParser.urlencoded({extended: true}));
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 
 
 //----------routes----------------
@@ -30,7 +30,7 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) =>{
     db.collection('manatees').find().toArray()
     .then(manatees => {
-        res.render('index.ejs', {manatees: manatees})
+        res.render('index.html', {manatees: manatees})
     })
     .catch(/*---*/)
 })
